@@ -1,0 +1,38 @@
+[package]
+name = "size-optimization-rust-binaries"
+version = "0.1.0"
+edition = "2021"
+description = "Package to tryout different binary size optimization techniques"
+authors = ["Bob Peters <contact@rust-trends.com>"]
+homepage = "https://rust-trends.com"
+repository = "https://github.com/Rust-Trends/size-optimization-rust-binaries"
+license = "GNU GPLv3"
+
+# In order to try out different binary size optimizations, we use custom profiles
+# To select a profile you need to specify a flag with cargo `--profile=<name of profile>`
+# e.g cargo build --profile=size-opt1
+[profile.size-opt1]
+inherits = "release"
+strip = true # strip symbols from the binary
+opt-level = 'z' # Optimize for size
+
+[profile.size-opt2]
+inherits = "release"
+strip = true # strip symbols from the binary
+opt-level = 'z' # Optimize for size
+lto = true # Link Time Optimization (LTO)
+
+[profile.size-opt3]
+inherits = "release"
+strip = true # strip symbols from the binary
+opt-level = 'z' # Optimize for size
+lto = true # Link Time Optimization (LTO)
+codegen-units = 1 # Parallel Code Generation Units
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+serde = "*"
+serde_json = "*"
+serde_derive = "*"
+iron = "*"
